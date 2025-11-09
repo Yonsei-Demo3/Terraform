@@ -59,7 +59,7 @@ jobs:
             -var="project_name=${{ secrets.PROJECT_NAME }}" \
             -var="vpc_cidr=${{ secrets.VPC_CIDR }}" \
             -var="ec2_key_name=${{ secrets.EC2_KEY_NAME }}" \
-            -var="db_password=${{ secrets.DB_PASSWORD }}"
+            -var="db_password=${{ secrets.DB_PASSWORD }}" \
 
 
 

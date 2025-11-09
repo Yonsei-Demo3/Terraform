@@ -34,7 +34,7 @@ variable "ec2_ami_id" {
   description = "API 서버가 사용할 AMI ID (Ubuntu 22.04 LTS, ap-northeast-2)"
   type        = string
   # (참고) 이 값은 AWS에서 'Ubuntu 22.04 LTS (HVM), amd64' 서울 리전 AMI ID입니다.
-  default     = "ami-04a32252a0a2f8b50"
+  default     = "ami-0a71e3eb8b23101ed"
 }
 
 variable "ec2_key_name" {

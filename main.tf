@@ -37,3 +37,16 @@ module "api_server" {
 
   ec2_key_name = var.ec2_key_name
 }
+
+# --- 3. RDS 모듈 호출 ---
+module "rds" {
+  source = "./modules/rds"
+
+  project_name       = var.project_name
+  public_subnet_id   = module.vpc.public_subnet_id
+  rds_sg_id          = module.security.rds_sg_id
+
+  db_name            = var.db_name
+  db_username        = var.db_username
+  db_password        = var.db_password
+}

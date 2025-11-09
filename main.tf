@@ -11,3 +11,29 @@ module "vpc" {
   vpc_cidr           = var.vpc_cidr
   public_subnet_cidr = var.public_subnet_cidr
 }
+
+module "security" {
+  source = "./modules/security"
+
+  # VPC 모듈의 결과물(vpc_id)을 전달
+  vpc_id       = module.vpc.vpc_id 
+  project_name = var.project_name
+}
+
+# --- 2. API 서버 (EC2) 모듈 호출 ---
+module "api_server" {
+  source = "./modules/ec2"
+
+  # 루트 변수 전달
+  project_name  = var.project_name
+  instance_type = var.ec2_instance_type
+  ami_id        = var.ec2_ami_id
+
+  # VPC 모듈의 '결과물'을 EC2 모듈의 '입력값'으로 전달
+  vpc_id    = module.vpc.vpc_id
+  subnet_id = module.vpc.public_subnet_id
+
+  api_sg_id = module.security.api_sg_id
+
+  ec2_key_name = var.ec2_key_name
+}

@@ -22,3 +22,23 @@ variable "public_subnet_cidr" {
   type        = string
   default     = "10.10.1.0/24"
 }
+
+# --- EC2 변수 추가 ---
+variable "ec2_instance_type" {
+  description = "API 서버 인스턴스 타입"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "ec2_ami_id" {
+  description = "API 서버가 사용할 AMI ID (Ubuntu 22.04 LTS, ap-northeast-2)"
+  type        = string
+  # (참고) 이 값은 AWS에서 'Ubuntu 22.04 LTS (HVM), amd64' 서울 리전 AMI ID입니다.
+  default     = "ami-04a32252a0a2f8b50"
+}
+
+variable "ec2_key_name" {
+  description = "AWS에 등록된 EC2 키 페어 이름"
+  type        = string
+  # (default 없음, tfvars에서 꼭 입력하도록 강제)
+}

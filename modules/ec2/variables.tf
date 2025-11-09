@@ -13,6 +13,7 @@ variable "subnet_id" {
   type        = string
 }
 
+
 variable "instance_type" {
   description = "EC2 인스턴스 타입 (e.g., t3.micro)"
   type        = string
@@ -23,6 +24,12 @@ variable "ami_id" {
   description = "EC2가 사용할 Amazon Machine Image ID"
   type        = string
 }
+
+variable "api_sg_id" {
+  description = "API 서버용 보안 그룹 ID (security 모듈에서 전달받음)"
+  type        = string
+}
+
 
 variable "ec2_key_name" {
   description = "EC2 접속용 SSH 키 페어 이름"

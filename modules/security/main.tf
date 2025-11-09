@@ -1,0 +1,36 @@
+resource "aws_security_group" "api_sg" {
+  name        = "${var.project_name}-api-sg"
+  description = "API 서버용 보안 그룹"
+  vpc_id      = var.vpc_id # (VPC 모듈에서 ID를 받아옴)
+
+  # --- 인바운드(Inbound) 규칙 (서버로 들어오는 트래픽) ---
+  
+  # 22번 포트 (SSH): '내 IP'에서만 접속 허용 (보안)
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] #추후 변경 필요
+  }
+
+  # 8080번 포트 (Spring API): 모든 IP에서 접속 허용
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # --- 아웃바운드(Egress) 규칙 (서버에서 나가는 트래픽) ---
+  # 모든 트래픽 허용 (e.g., git pull, apt update 등)
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # (모든 프로토콜)
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-api-sg"
+  }
+}

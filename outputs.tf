@@ -20,5 +20,5 @@ output "api_server_public_ip" {
 
 output "rds_endpoint" {
   description = "RDS 데이터베이스 엔드포인트"
-  value       = module.rds.database_endpoint
+  value       = module.rds.db_endpoint
 }

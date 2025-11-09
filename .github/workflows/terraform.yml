@@ -5,15 +5,15 @@ name: 'Terraform CI/CD'
 on:
   push:
     branches:
-      - main  # 1. 'main' 브랜치에 푸시될 때만 실행
+      - dev  # 1. 'dev' 브랜치에 푸시될 때만 실행
     paths:
       - 'terraform/**' # 2. 'terraform/' 폴더가 변경됐을 때만
   
   pull_request:
     branches:
-      - main
+      - dev
     paths:
-      - 'terraform/**' # 3. 'main'으로 PR 올릴 때도 실행 (plan만)
+      - 'terraform/**' # 3. 'dev'으로 PR 올릴 때도 실행 (plan만)
 
 # (중요) 동시에 여러 CI/CD가 실행되는 것을 막음
 concurrency: terraform-deploy

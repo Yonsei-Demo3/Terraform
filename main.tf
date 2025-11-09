@@ -10,6 +10,7 @@ module "vpc" {
   aws_region         = var.aws_region
   vpc_cidr           = var.vpc_cidr
   public_subnet_cidr = var.public_subnet_cidr
+  public_subnet_cidr2 = var.public_subnet_cidr2
 }
 
 module "security" {
@@ -44,6 +45,7 @@ module "rds" {
 
   project_name       = var.project_name
   public_subnet_id   = module.vpc.public_subnet_id
+  public_subnet_id2  = module.vpc.public_subnet_id2
   rds_sg_id          = module.security.rds_sg_id
 
   db_name            = var.db_name

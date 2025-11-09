@@ -19,3 +19,8 @@ variable "public_subnet_cidr" {
   description = "퍼블릭 서브넷 IP 대역"
   type        = string
 }
+
+variable "public_subnet_cidr2" {
+  description = "두번째 퍼블릭 서브넷 IP 대역"
+  type        = string
+}

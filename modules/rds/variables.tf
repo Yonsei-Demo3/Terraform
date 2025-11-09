@@ -8,6 +8,11 @@ variable "public_subnet_id" {
   type        = string
 }
 
+variable "public_subnet_id2" {
+  description = "RDS가 생성될 두번째 서브넷 ID (vpc 모듈에서 전달받음)"
+  type        = string
+}
+
 variable "rds_sg_id" {
     description = "RDS용 보안 그룹 ID (security 모듈에서 전달받음)"
     type        = string

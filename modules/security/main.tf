@@ -1,6 +1,6 @@
 resource "aws_security_group" "api_sg" {
   name        = "${var.project_name}-api-sg"
-  description = "API 서버용 보안 그룹"
+  description = "Security group for API server"
   vpc_id      = var.vpc_id # (VPC 모듈에서 ID를 받아옴)
 
   # --- 인바운드(Inbound) 규칙 (서버로 들어오는 트래픽) ---

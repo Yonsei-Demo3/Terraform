@@ -24,6 +24,14 @@ resource "aws_subnet" "public" {
   tags                    = { Name = "${var.project_name}-public-subnet" }
 }
 
+resource "aws_subnet" "public2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnet_cidr2
+  availability_zone       = "${var.aws_region}b"
+  map_public_ip_on_launch = true
+  tags                    = { Name = "${var.project_name}-public-subnet-2" }
+}
+
 # --- 4. 라우트 테이블 (Route Table) 생성 ---
 # "퍼블릭 서브넷"이 사용할 '교통 규칙' (네비게이션)
 resource "aws_route_table" "public_rt" {
@@ -46,5 +54,10 @@ resource "aws_route_table" "public_rt" {
 # "방금 만든 '퍼블릭 서브넷'은 '퍼블릭 교통 규칙'을 따른다"
 resource "aws_route_table_association" "public_assoc" {
   subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "public_assoc_2" {
+  subnet_id      = aws_subnet.public2.id
   route_table_id = aws_route_table.public_rt.id
 }

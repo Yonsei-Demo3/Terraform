@@ -5,7 +5,7 @@
 #  var.public_subnet_id로 전달받아 그룹으로 묶어줍니다.)
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = "${var.project_name}-rds-subnet-group"
-  subnet_ids = [var.public_subnet_id] # (EC2와 동일한 서브넷 ID 사용)
+  subnet_ids = [var.public_subnet_id, var.public_subnet_id2] # (EC2와 동일한 서브넷 ID 사용)
 
   tags = {
     Name = "${var.project_name}-rds-subnet-group"

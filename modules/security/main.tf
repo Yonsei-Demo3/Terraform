@@ -10,7 +10,7 @@ resource "aws_security_group" "api_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #추후 변경 필요
+    cidr_blocks = ["0.0.0.0/0"] # 추후 변경 필요
   }
 
   # 8080번 포트 (Spring API): 모든 IP에서 접속 허용

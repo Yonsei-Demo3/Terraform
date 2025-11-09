@@ -1,5 +1,6 @@
 ---
 name: "🏗️ Terraform 인프라 변경 요청"
+about: "Changes about infra"
 title: "[Terraform] "
 labels: "infrastructure"
 assignees: ""

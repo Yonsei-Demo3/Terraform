@@ -5,8 +5,10 @@
 
 # --- 1. VPC 생성 ---
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr # (var.vpc_cidr는 이 모듈의 variables.tf에서 받아야 함)
-  tags       = { Name = "${var.project_name}-vpc" }
+  cidr_block           = var.vpc_cidr # (var.vpc_cidr는 이 모듈의 variables.tf에서 받아야 함)
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  tags                 = { Name = "${var.project_name}-vpc" }
 }
 
 # --- 2. 인터넷 게이트웨이 ---

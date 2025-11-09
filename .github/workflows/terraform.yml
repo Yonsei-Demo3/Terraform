@@ -54,4 +54,12 @@ jobs:
       - name: Terraform Apply (실제 배포)
         # 'dev' 브랜치로 'push'됐을 때만 실행
         if: github.event_name == 'push' && github.ref_name == 'dev'
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve \
+            -var="project_name=${{ secrets.PROJECT_NAME }}" \
+            -var="vpc_cidr=${{ secrets.VPC_CIDR }}" \
+            -var="ec2_key_name=${{ secrets.EC2_KEY_NAME }}" \
+
+
+
+      

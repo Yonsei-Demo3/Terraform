@@ -17,3 +17,8 @@ output "api_server_public_ip" {
   description = "API 서버 (EC2)의 공인 IP 주소"
   value       = module.api_server.public_ip
 }
+
+output "rds_endpoint" {
+  description = "RDS 데이터베이스 엔드포인트"
+  value       = module.rds.database_endpoint
+}

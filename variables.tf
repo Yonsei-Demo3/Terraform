@@ -42,3 +42,22 @@ variable "ec2_key_name" {
   type        = string
   # (default 없음, tfvars에서 꼭 입력하도록 강제)
 }
+
+#--- RDS 변수 추가 ---
+variable "db_name" {
+  description = "RDS에 생성할 데이터베이스 이름"
+  type        = string
+  default     = "sai_db"
+}
+
+variable "db_username" {
+  description = "RDS 데이터베이스 접속용 사용자 이름"
+  type        = string
+  default     = "root"
+}
+
+variable "db_password" {
+  description = "RDS 데이터베이스 접속용 비밀번호"
+  type        = string
+  sensitive   = true
+}

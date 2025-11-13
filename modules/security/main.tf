@@ -21,6 +21,13 @@ resource "aws_security_group" "api_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # --- 아웃바운드(Egress) 규칙 (서버에서 나가는 트래픽) ---
   # 모든 트래픽 허용 (e.g., git pull, apt update 등)
   egress {

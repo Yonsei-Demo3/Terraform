@@ -25,8 +25,8 @@ variable "ami_id" {
   type        = string
 }
 
-variable "api_sg_id" {
-  description = "API 서버용 보안 그룹 ID (security 모듈에서 전달받음)"
+variable "sg_id" {
+  description = "보안 그룹 ID (security 모듈에서 전달받음)"
   type        = string
 }
 

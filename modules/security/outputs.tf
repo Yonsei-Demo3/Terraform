@@ -7,3 +7,8 @@ output "rds_sg_id" {
   description = "RDS 보안 그룹 ID"
   value       = aws_security_group.rds_sg.id
 }
+
+output "socket_sg_id" {
+  description = "Socket 서버 보안 그룹 ID"
+  value       = aws_security_group.socket_sg.id
+}

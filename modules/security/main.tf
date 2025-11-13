@@ -21,6 +21,13 @@ resource "aws_security_group" "api_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # --- 아웃바운드(Egress) 규칙 (서버에서 나가는 트래픽) ---
   # 모든 트래픽 허용 (e.g., git pull, apt update 등)
   egress {
@@ -59,5 +66,36 @@ resource "aws_security_group" "rds_sg" {
 
   tags = {
     Name = "${var.project_name}-rds-sg"
+  }
+}
+
+resource "aws_security_group" "socket_sg" {
+  name        = "${var.project_name}-socket-sg"
+  description = "Security group for Socket server"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-socket-sg"
   }
 }

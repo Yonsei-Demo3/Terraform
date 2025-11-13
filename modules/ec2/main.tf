@@ -6,7 +6,7 @@ resource "aws_instance" "api_server" {
   # (VPC 모듈의 결과물 + 이 파일 1번에서 만든 방화벽)
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [var.api_sg_id]
+  vpc_security_group_ids      = [var.sg_id]
   
   # (중요) EC2에 접속할 SSH 키 이름
   key_name                    = var.ec2_key_name # (variables.tf에 추가할 변수)

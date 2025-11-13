@@ -98,4 +98,4 @@ resource "aws_security_group" "socket_sg" {
   tags = {
     Name = "${var.project_name}-socket-sg"
   }
-} 
+}

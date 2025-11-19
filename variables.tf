@@ -29,6 +29,18 @@ variable "public_subnet_cidr2" {
   default     = "10.10.2.0/24"
 }
 
+variable "private_subnet_cidr" {
+  description = "프라이빗 서브넷 IP 대역"
+  type        = string
+  default     = "10.10.3.0/24"
+}
+
+variable "private_subnet_cidr2" {
+  description = "두번째 프라이빗 서브넷 IP 대역"
+  type        = string
+  default     = "10.10.4.0/24"
+}
+
 # --- EC2 변수 추가 ---
 variable "ec2_instance_type" {
   description = "API 서버 인스턴스 타입"

@@ -130,5 +130,4 @@ resource "aws_security_group" "redis_sg" {
   tags = {
     Name = "${var.project_name}-redis-sg"
   }
-  
 }

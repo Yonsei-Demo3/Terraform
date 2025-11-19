@@ -46,7 +46,6 @@ resource "aws_subnet" "private2" {
   cidr_block        = var.private_subnet_cidr2
   availability_zone = "${var.aws_region}b"
   tags              = { Name = "${var.project_name}-private-subnet-2" }
-  
 }
 
 # --- 4. 라우트 테이블 (Route Table) 생성 ---

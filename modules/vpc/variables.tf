@@ -24,3 +24,13 @@ variable "public_subnet_cidr2" {
   description = "두번째 퍼블릭 서브넷 IP 대역"
   type        = string
 }
+
+variable "private_subnet_cidr" {
+  description = "프라이빗 서브넷 IP 대역"
+  type        = string
+}
+
+variable "private_subnet_cidr2" {
+  description = "두번째 프라이빗 서브넷 IP 대역"
+  type        = string
+}

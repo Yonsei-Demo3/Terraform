@@ -11,6 +11,8 @@ module "vpc" {
   vpc_cidr           = var.vpc_cidr
   public_subnet_cidr = var.public_subnet_cidr
   public_subnet_cidr2 = var.public_subnet_cidr2
+  private_subnet_cidr = var.private_subnet_cidr
+  private_subnet_cidr2 = var.private_subnet_cidr2
 }
 
 module "security" {
@@ -71,3 +73,13 @@ module "rds" {
   db_password        = var.db_password
 }
 
+module "redis" {
+  source = "./modules/redis"
+
+  project_name       = var.project_name
+  subnet_ids = [
+    module.vpc.private_subnet_id,
+    module.vpc.private_subnet_id2
+  ]
+  redis_sg_id        = module.security.redis_sg_id
+}

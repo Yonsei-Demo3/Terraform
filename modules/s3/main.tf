@@ -28,48 +28,38 @@ resource "aws_s3_bucket_ownership_controls" "this" {
   }
 }
 
-resource "aws_s3_bucket_policy" "public_read" {
-  bucket = aws_s3_bucket.this.id
-
-  # Public Access Block 설정이 먼저 적용된 후에 정책이 들어가야 에러가 안 남
-  depends_on = [aws_s3_bucket_public_access_block.this]
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicReadGetObject"
-        Effect    = "Allow"
-        Principal = "*"  # 전 세계 누구나
-        Action    = "s3:GetObject" # 읽기만 가능 (업로드/삭제는 불가)
-        Resource  = "${aws_s3_bucket.this.arn}/*"
-      }
-    ]
-  })
-}
 
 resource "aws_s3_bucket_cors_configuration" "this" {
   bucket = aws_s3_bucket.this.id
 
   cors_rule {
+    # 모든 메서드 허용
+    allowed_methods = ["PUT", "POST", "GET", "HEAD", "DELETE"]
+    allowed_origins = ["*"] 
     allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST", "DELETE"]
-    allowed_origins = ["*"]
-  }
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["GET"]
-    allowed_origins = ["*"]
+    
+    # ★ 중요: 프론트엔드가 업로드 후 ETag 확인하려면 이거 꼭 있어야 함
+    expose_headers  = ["ETag"] 
+    max_age_seconds = 3000
   }
 }
 
 # 5. S3 버킷 정책 (EC2 접근 허용)
-resource "aws_s3_bucket_policy" "allow_ec2" {
+resource "aws_s3_bucket_policy" "main_policy" {
   bucket = aws_s3_bucket.this.id
+
+  depends_on = [aws_s3_bucket_public_access_block.this] 
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
+        {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.this.arn}/*"
+        },
       {
         Sid       = "AllowEC2"
         Effect    = "Allow"

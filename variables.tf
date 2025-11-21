@@ -79,3 +79,15 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "s3_bucket_name" {
+  description = "The name of the S3 bucket"
+  type        = string
+  default     = "sai-final-bucket-asdfasdf"
+}
+
+variable "environment" {
+  description = "The environment"
+  type        = string
+  default     = "dev"
+}

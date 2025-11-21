@@ -83,3 +83,12 @@ module "redis" {
   ]
   redis_sg_id        = module.security.redis_sg_id
 }
+
+module "s3" {
+  source = "./modules/s3"
+
+  project_name     = var.project_name
+  environment      = var.environment
+  bucket_name      = var.s3_bucket_name
+  ec2_iam_role_arn = module.api_server.iam_role_arn
+}

@@ -15,7 +15,3 @@ variable "environment" {
     default     = "dev"
 }
 
-variable "ec2_iam_role_arn" {
-    description = "The ARN of the IAM role for the EC2 instance"
-    type        = string
-}

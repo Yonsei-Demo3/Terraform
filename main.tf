@@ -28,9 +28,11 @@ module "api_server" {
   source = "./modules/ec2"
 
   # 루트 변수 전달
-  project_name  = var.project_name
-  instance_type = var.ec2_instance_type
-  ami_id        = var.ec2_ami_id
+  project_name   = var.project_name
+  component_name = "api"
+  instance_type  = var.ec2_instance_type
+  ami_id         = var.ec2_ami_id
+  s3_bucket_arn  = module.s3.bucket_arn
 
   # VPC 모듈의 '결과물'을 EC2 모듈의 '입력값'으로 전달
   vpc_id    = module.vpc.vpc_id
@@ -46,9 +48,11 @@ module "socket_server" {
   source = "./modules/ec2"
 
   # 루트 변수 전달
-  project_name  = var.project_name
-  instance_type = var.ec2_instance_type
-  ami_id        = var.ec2_ami_id
+  project_name   = var.project_name
+  component_name = "socket"
+  instance_type  = var.ec2_instance_type
+  ami_id         = var.ec2_ami_id
+  s3_bucket_arn  = module.s3.bucket_arn
 
   # VPC 모듈의 '결과물'을 EC2 모듈의 '입력값'으로 전달
   vpc_id    = module.vpc.vpc_id
@@ -82,4 +86,12 @@ module "redis" {
     module.vpc.private_subnet_id2
   ]
   redis_sg_id        = module.security.redis_sg_id
+}
+
+module "s3" {
+  source = "./modules/s3"
+
+  project_name = var.project_name
+  environment  = var.environment
+  bucket_name  = var.s3_bucket_name
 }

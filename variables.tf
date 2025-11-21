@@ -79,3 +79,15 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "s3_bucket_name" {
+  description = "S3 버킷 이름"
+  type        = string
+  default     = "sai-final-bucket-asdfasdf"
+}
+
+variable "environment" {
+  description = "배포 환경 (예: dev, prod 등)"
+  type        = string
+  default     = "dev"
+}

@@ -35,3 +35,13 @@ variable "ec2_key_name" {
   description = "EC2 접속용 SSH 키 페어 이름"
   type        = string
 }
+
+variable "s3_bucket_arn" {
+  description = "S3 버킷 ARN"
+  type        = string
+}
+
+variable "component_name" {
+  description = "컴포넌트 이름 (예: api-server, socket-server 등)"
+  type        = string  
+}

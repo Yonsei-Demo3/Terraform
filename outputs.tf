@@ -32,3 +32,13 @@ output "rds_endpoint" {
   description = "RDS 데이터베이스 엔드포인트"
   value       = module.rds.db_endpoint
 }
+
+output "final_api_url" {
+  description = "최종 API 접속 주소"
+  value       = "http://${module.alb.alb_dns_name}"
+}
+
+output "final_alb_dns" {
+  description = "도메인 설정용 DNS 값"
+  value       = module.alb.alb_dns_name
+}

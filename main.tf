@@ -95,3 +95,18 @@ module "s3" {
   environment  = var.environment
   bucket_name  = var.s3_bucket_name
 }
+
+module "alb" {
+  source = "./modules/alb"
+
+  project_name       = var.project_name
+  vpc_id             = module.vpc.vpc_id
+  subnet_ids = [
+    module.vpc.public_subnet_id,
+    module.vpc.public_subnet_id2
+  ]
+  alb_sg_id          = module.security.alb_sg_id
+
+  api_instance_id = module.api_server.instance_id
+  socket_instance_id = module.socket_server.instance_id
+}

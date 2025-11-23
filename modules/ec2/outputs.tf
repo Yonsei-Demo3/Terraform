@@ -7,3 +7,8 @@ output "iam_role_arn" {
   description = "The ARN of the IAM role"
   value       = aws_iam_role.this.arn
 }
+
+output "instance_id" {
+  description = "EC2 인스턴스 ID"
+  value       = aws_instance.this.id
+}

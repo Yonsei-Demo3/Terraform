@@ -48,7 +48,7 @@ resource "aws_instance" "api_server" {
 }
 
 
-# EC2가 S3에 접근할 수 있도록 권한 부여 //TODO: ECR 분리
+# EC2가 S3에 접근할 수 있도록 권한 부여 //TODO:ECR 권한 분리
 resource "aws_iam_role_policy" "s3_access" {
   name = "${var.project_name}-${var.component_name}-s3-policy"
   role = aws_iam_role.this.id

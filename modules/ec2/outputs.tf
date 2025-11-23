@@ -10,5 +10,5 @@ output "iam_role_arn" {
 
 output "instance_id" {
   description = "EC2 인스턴스 ID"
-  value       = aws_instance.this.id
+  value       = aws_instance.api_server.id
 }

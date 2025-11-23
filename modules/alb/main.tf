@@ -18,7 +18,6 @@ resource "aws_lb_target_group" "api_tg" {
 
     health_check {
         path                = "/healthz"
-        
     }
 }
 
@@ -29,13 +28,13 @@ resource "aws_lb_target_group" "socket_tg" {
     vpc_id   = var.vpc_id
 
     stickiness {
-    type            = "lb_cookie"
-    cookie_duration = 86400
-    enabled         = true
+        type            = "lb_cookie"
+        cookie_duration = 86400
+        enabled         = true
     } 
 
     health_check {
-    path = "/healthz" # 소켓 서버 헬스체크 경로
+        path = "/healthz" # 소켓 서버 헬스체크 경로
     }
 }
 
@@ -76,5 +75,4 @@ resource "aws_lb_target_group_attachment" "socket_attachment" {
     target_group_arn = aws_lb_target_group.socket_tg.arn
     target_id        = var.socket_instance_id
     port             = 3000
-  
 }

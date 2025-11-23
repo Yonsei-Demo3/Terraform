@@ -22,7 +22,6 @@ variable "alb_sg_id" {
 variable "api_instance_id" {
     description = "API 서버 인스턴스 ID"
     type        = string
-  
 }
 
 variable "socket_instance_id" {

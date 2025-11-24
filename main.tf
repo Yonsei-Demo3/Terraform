@@ -110,3 +110,11 @@ module "alb" {
   api_instance_id = module.api_server.instance_id
   socket_instance_id = module.socket_server.instance_id
 }
+
+module "route53" {
+  source = "./modules/route53"
+
+  domain_name    = "talkwithsai.com"
+  alb_dns_name   = module.alb.alb_dns_name
+  alb_zone_id    = module.alb.alb_zone_id
+}

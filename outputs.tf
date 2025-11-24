@@ -42,3 +42,8 @@ output "final_alb_dns" {
   description = "도메인 설정용 DNS 값"
   value       = module.alb.alb_dns_name
 }
+
+output "name_servers" {
+  description = "Route53 네임서버"
+  value       = module.route53.name_servers
+}

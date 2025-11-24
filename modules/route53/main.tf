@@ -14,4 +14,4 @@ resource "aws_route53_record" "api" {
     }
 }
 
-//프론트엔드 추가
+//TODO: 프론트엔드 추가

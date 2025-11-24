@@ -46,5 +46,4 @@ output "final_alb_dns" {
 output "name_servers" {
   description = "Route53 네임서버"
   value       = module.route53.name_servers
-  
 }

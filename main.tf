@@ -109,6 +109,8 @@ module "alb" {
 
   api_instance_id = module.api_server.instance_id
   socket_instance_id = module.socket_server.instance_id
+
+  acm_certificate_arn = module.acm.aws_acm_certificate_arn
 }
 
 module "route53" {
@@ -117,4 +119,11 @@ module "route53" {
   domain_name    = "talkwithsai.com"
   alb_dns_name   = module.alb.alb_dns_name
   alb_zone_id    = module.alb.alb_zone_id
+}
+
+module "acm" {
+  source = "./modules/acm"
+
+  domain_name      = "talkwithsai.com"
+  route53_zone_id  = module.route53.zone_id
 }

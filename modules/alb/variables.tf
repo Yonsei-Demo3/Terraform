@@ -28,3 +28,8 @@ variable "socket_instance_id" {
     description = "Socket 서버 인스턴스 ID"
     type        = string
 }
+
+variable "acm_certificate_arn" {
+  description = "HTTPS 리스너에 적용할 인증서 ARN"
+  type        = string
+}

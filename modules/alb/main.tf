@@ -49,8 +49,37 @@ resource "aws_lb_listener" "http" {
     }
 }
 
+resource "aws_lb_listener" "https" {
+    load_balancer_arn = aws_lb.this.arn
+    port              = "443"
+    protocol          = "HTTPS"
+    ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+    certificate_arn   = var.acm_certificate_arn
+
+    default_action {
+        type             = "forward"
+        target_group_arn = aws_lb_target_group.socket_tg.arn
+    }
+}
+
 resource "aws_lb_listener_rule" "api_rule" {
-    listener_arn = aws_lb_listener.http.arn
+    listener_arn = aws_lb_listener.https.arn
+    priority     = 100
+
+    action {
+        type             = "forward"
+        target_group_arn = aws_lb_target_group.api_tg.arn
+    }
+
+    condition {
+        path_pattern {
+            values = ["/api/*"]
+        }
+    }
+}
+
+resource "aws_lb_listener_rule" "http_api_rule" {
+    listener_arn = aws_lb_listener.http.arn # 80번 리스너에 연결
     priority     = 100
 
     action {

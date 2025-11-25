@@ -23,6 +23,40 @@ module "security" {
   project_name = var.project_name
 }
 
+module "s3" {
+  source = "./modules/s3"
+
+  project_name = var.project_name
+  environment  = var.environment
+  bucket_name  = var.s3_bucket_name
+}
+
+# --- 3. RDS 모듈 호출 ---
+module "rds" {
+  source = "./modules/rds"
+
+  project_name       = var.project_name
+  public_subnet_id   = module.vpc.public_subnet_id
+  public_subnet_id2  = module.vpc.public_subnet_id2
+  rds_sg_id          = module.security.rds_sg_id
+
+  db_name            = var.db_name
+  db_username        = var.db_username
+  db_password        = var.db_password
+}
+
+module "redis" {
+  source = "./modules/redis"
+
+  project_name       = var.project_name
+  subnet_ids = [
+    module.vpc.private_subnet_id,
+    module.vpc.private_subnet_id2
+  ]
+  redis_sg_id        = module.security.redis_sg_id
+}
+
+
 # --- 2. API 서버 (EC2) 모듈 호출 ---
 module "api_server" {
   source = "./modules/ec2"
@@ -63,37 +97,19 @@ module "socket_server" {
   ec2_key_name = var.ec2_key_name
 }
 
-# --- 3. RDS 모듈 호출 ---
-module "rds" {
-  source = "./modules/rds"
+module "route53" {
+  source = "./modules/route53"
 
-  project_name       = var.project_name
-  public_subnet_id   = module.vpc.public_subnet_id
-  public_subnet_id2  = module.vpc.public_subnet_id2
-  rds_sg_id          = module.security.rds_sg_id
-
-  db_name            = var.db_name
-  db_username        = var.db_username
-  db_password        = var.db_password
+  domain_name    = "talkwithsai.com"
+  alb_dns_name   = module.alb.alb_dns_name
+  alb_zone_id    = module.alb.alb_zone_id
 }
 
-module "redis" {
-  source = "./modules/redis"
+module "acm" {
+  source = "./modules/acm"
 
-  project_name       = var.project_name
-  subnet_ids = [
-    module.vpc.private_subnet_id,
-    module.vpc.private_subnet_id2
-  ]
-  redis_sg_id        = module.security.redis_sg_id
-}
-
-module "s3" {
-  source = "./modules/s3"
-
-  project_name = var.project_name
-  environment  = var.environment
-  bucket_name  = var.s3_bucket_name
+  domain_name      = "talkwithsai.com"
+  route53_zone_id  = module.route53.zone_id
 }
 
 module "alb" {
@@ -111,19 +127,4 @@ module "alb" {
   socket_instance_id = module.socket_server.instance_id
 
   acm_certificate_arn = module.acm.aws_acm_certificate_arn
-}
-
-module "route53" {
-  source = "./modules/route53"
-
-  domain_name    = "talkwithsai.com"
-  alb_dns_name   = module.alb.alb_dns_name
-  alb_zone_id    = module.alb.alb_zone_id
-}
-
-module "acm" {
-  source = "./modules/acm"
-
-  domain_name      = "talkwithsai.com"
-  route53_zone_id  = module.route53.zone_id
 }

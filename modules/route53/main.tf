@@ -14,4 +14,20 @@ resource "aws_route53_record" "api" {
     }
 }
 
-//TODO: 프론트엔드 추가
+resource "aws_route53_record" "frontend_root" {
+    zone_id = aws_route53_zone.main.zone_id
+    name    = var.domain_name
+    type    = "A"
+    ttl    = 600
+
+    records = ["216.198.79.1"]
+}
+
+resource "aws_route53_record" "frontend_www" {
+    zone_id = aws_route53_zone.main.zone_id
+    name    = "www.${var.domain_name}"
+    type    = "CNAME"
+    ttl    = 600
+
+    records = ["e485a016f2f9bd56.vercel-dns-017.com."]
+}
